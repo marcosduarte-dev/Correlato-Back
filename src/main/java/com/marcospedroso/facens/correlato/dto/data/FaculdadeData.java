@@ -10,6 +10,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class FaculdadeData {
-	private int id;
+	private Long id;
     private String nome;
 }

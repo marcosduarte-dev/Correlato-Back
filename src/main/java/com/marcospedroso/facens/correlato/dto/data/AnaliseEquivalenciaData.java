@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class AnaliseEquivalenciaData {
-	private int id;
+	private Long id;
 	private UsuarioData idProfessorResponsavel;
 	private DisciplinaData idDisciplinaOrigem;
 	private DisciplinaData idDisciplinaDestino;
