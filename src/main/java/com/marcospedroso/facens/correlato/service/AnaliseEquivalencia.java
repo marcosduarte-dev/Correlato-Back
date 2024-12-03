@@ -2,7 +2,7 @@ package com.marcospedroso.facens.correlato.service;
 
 import java.util.List;
 
-import com.marcospedroso.facens.correlato.dto.create.CreateAnaliseEquivalencia;
+import com.marcospedroso.facens.correlato.dto.create.CreateUpdateAnaliseEquivalencia;
 import com.marcospedroso.facens.correlato.dto.data.AnaliseEquivalenciaData;
 
 public interface AnaliseEquivalencia {
@@ -10,9 +10,9 @@ public interface AnaliseEquivalencia {
 
 	AnaliseEquivalenciaData findById(Long id);
 
-	AnaliseEquivalenciaData create(CreateAnaliseEquivalencia dto);
+	AnaliseEquivalenciaData create(CreateUpdateAnaliseEquivalencia dto);
 
-	AnaliseEquivalenciaData update(Long id, CreateAnaliseEquivalencia dto);
+	AnaliseEquivalenciaData update(Long id, CreateUpdateAnaliseEquivalencia dto);
 
     void delete(Long id);
 }

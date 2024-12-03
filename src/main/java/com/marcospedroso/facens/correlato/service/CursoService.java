@@ -2,7 +2,7 @@ package com.marcospedroso.facens.correlato.service;
 
 import java.util.List;
 
-import com.marcospedroso.facens.correlato.dto.create.CreateCurso;
+import com.marcospedroso.facens.correlato.dto.create.CreateUpdateCurso;
 import com.marcospedroso.facens.correlato.dto.data.CursoData;
 
 public interface CursoService {
@@ -10,9 +10,9 @@ public interface CursoService {
 
 	CursoData findById(Long id);
 
-	CursoData create(CreateCurso dto);
+	CursoData create(CreateUpdateCurso dto);
 
-	CursoData update(Long id, CreateCurso dto);
+	CursoData update(Long id, CreateUpdateCurso dto);
 
     void delete(Long id);
 

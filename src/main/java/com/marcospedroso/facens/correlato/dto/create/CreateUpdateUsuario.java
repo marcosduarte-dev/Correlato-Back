@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class CreateUsuario {
+public class CreateUpdateUsuario {
 	
 	@NotBlank(message = "não pode ser vazio")
     private String email;

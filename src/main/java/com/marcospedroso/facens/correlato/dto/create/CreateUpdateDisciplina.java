@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class CreateDisciplina {
+public class CreateUpdateDisciplina {
 	
 	@NotBlank(message = "não pode ser vazio")
     private String codDisciplina;

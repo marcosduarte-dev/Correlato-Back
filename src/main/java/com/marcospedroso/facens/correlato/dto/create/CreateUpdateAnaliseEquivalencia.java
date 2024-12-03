@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class CreateAnaliseEquivalencia {
+public class CreateUpdateAnaliseEquivalencia {
 	@NotNull(message = "não pode ser nulo")
 	private int idProfessorResponsavel;
 	
