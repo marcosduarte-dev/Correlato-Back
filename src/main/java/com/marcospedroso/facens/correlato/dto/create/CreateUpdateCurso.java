@@ -12,6 +12,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CreateUpdateCurso {
+	
+	private Long id;
+	
 	@NotBlank(message = "não pode ser vazio")
     private String nome;
 	

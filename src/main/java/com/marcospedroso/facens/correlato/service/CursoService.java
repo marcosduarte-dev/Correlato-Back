@@ -12,7 +12,7 @@ public interface CursoService {
 
 	CursoData create(CreateUpdateCurso dto);
 
-	CursoData update(Long id, CreateUpdateCurso dto);
+	CursoData update(CreateUpdateCurso dto);
 
     void delete(Long id);
 

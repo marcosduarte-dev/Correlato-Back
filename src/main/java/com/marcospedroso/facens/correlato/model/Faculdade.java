@@ -24,4 +24,8 @@ public class Faculdade {
 	 private String nome;
 	 
 	 private boolean ativo;
+	 
+	 public Faculdade(Long i) {
+		 this.id = i;
+	 }
 }
