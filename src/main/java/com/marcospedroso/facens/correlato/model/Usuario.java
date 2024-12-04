@@ -1,5 +1,7 @@
 package com.marcospedroso.facens.correlato.model;
 
+import java.util.UUID;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.marcospedroso.facens.correlato.enums.TipoUsuario;
 
@@ -28,7 +30,7 @@ public class Usuario {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.UUID)
-	private String id;
+	private UUID id;
 	
 	private String email;
 	
@@ -46,7 +48,7 @@ public class Usuario {
 	
 	private boolean ativo;
 
-	public Usuario(String id) {
+	public Usuario(UUID id) {
 		this.id = id;
 	}
 }

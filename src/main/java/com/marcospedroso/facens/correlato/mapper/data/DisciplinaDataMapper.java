@@ -8,16 +8,21 @@ import com.marcospedroso.facens.correlato.model.Disciplina;
 public class DisciplinaDataMapper {
 	
 	 public static DisciplinaData fromEntityToDTO(Disciplina entity) {
-	        return DisciplinaData.builder()
-	        		.id(entity.getId())
-	        		.codDisciplina(entity.getCodDisciplina())
-	                .nome(entity.getNome())
-	                .curso(CursoDataMapper.fromEntityToDTO(entity.getCurso()))
-	                .cargaHoraria(entity.getCargaHoraria())
-	                .ementa(entity.getEmenta())
-	                .programa(entity.getPrograma())
-	                .ativo(entity.isAtivo())
-	                .build();
+		 DisciplinaData disciplinaData = DisciplinaData.builder()
+		            .id(entity.getId())
+		            .codDisciplina(entity.getCodDisciplina())
+		            .nome(entity.getNome())
+		            .cargaHoraria(entity.getCargaHoraria())
+		            .ementa(entity.getEmenta())
+		            .programa(entity.getPrograma())
+		            .ativo(entity.isAtivo())
+		            .build();
+
+		    if (entity.getCurso() != null) {
+		        disciplinaData.setCurso(CursoDataMapper.fromEntityToDTO(entity.getCurso()));
+		    }
+
+		    return disciplinaData;
 	 }
 	 
 	 public static Disciplina fromDTOCreateUpdateToEntity(CreateUpdateDisciplina dto) {

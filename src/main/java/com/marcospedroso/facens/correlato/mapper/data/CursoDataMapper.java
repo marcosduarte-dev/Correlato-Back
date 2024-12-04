@@ -8,12 +8,17 @@ import com.marcospedroso.facens.correlato.model.Faculdade;
 public class CursoDataMapper {
 	
 	 public static CursoData fromEntityToDTO(Curso entity) {
-	        return CursoData.builder()
-	        		.id(entity.getId())
-	                .nome(entity.getNome())
-	                .faculdade(FaculdadeDataMapper.fromEntityToDTO(entity.getFaculdade()))
-	                .ativo(entity.isAtivo())
-	                .build();
+		 CursoData cursoData = CursoData.builder()
+		            .id(entity.getId())
+		            .nome(entity.getNome())
+		            .ativo(entity.isAtivo())
+		            .build();
+		 
+		 if (entity.getFaculdade() != null) {
+			 cursoData.setFaculdade(FaculdadeDataMapper.fromEntityToDTO(entity.getFaculdade()));
+		 }
+
+		 return cursoData;
 	 }
 	 
 	 public static Curso fromDTOCreateUpdateToEntity(CreateUpdateCurso dto) {

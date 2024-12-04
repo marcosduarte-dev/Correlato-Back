@@ -21,11 +21,11 @@ public class CreateUpdateAnaliseEquivalencia {
 	private String idProfessorResponsavel;
 	
 	@NotNull(message = "não pode ser nulo")
-	private int idDisciplinaOrigem;
+	private Long idDisciplinaOrigem;
 	
 	@NotNull(message = "não pode ser nulo")
-	private int idDisciplinaDestino;
+	private Long idDisciplinaDestino;
 	
-	@NotBlank(message = "não pode ser vazio")
+	@NotNull(message = "não pode ser nulo")
 	private StatusAnaliseEquivalencia status;
 }

@@ -22,7 +22,7 @@ public class CreateUpdateDisciplina {
     private String nome;
 	
 	@NotNull(message = "não pode ser nulo")
-	private int idCurso;
+	private Long idCurso;
 	
 	@NotNull(message = "não pode ser nulo")
     private Float cargaHoraria;

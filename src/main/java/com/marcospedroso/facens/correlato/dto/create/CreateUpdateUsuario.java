@@ -27,8 +27,8 @@ public class CreateUpdateUsuario {
     private String senha;
 	
 	@NotNull(message = "não pode ser nulo")
-    private int idFaculdade;
+    private Long idFaculdade;
 
-	@NotBlank
+	@NotNull
 	private TipoUsuario tipo;
 }

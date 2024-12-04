@@ -3,6 +3,7 @@ package com.marcospedroso.facens.correlato.service.impl;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,7 +68,7 @@ public class UsuarioServiceImpl implements UsuarioService{
 	public void delete(String id) {
 		getUsuario(id);
 		
-		repository.deleteById(id);
+		repository.deleteById(UUID.fromString(id));
 	}
 
 	@Override
@@ -82,7 +83,7 @@ public class UsuarioServiceImpl implements UsuarioService{
 	}
 	
 	private Usuario getUsuario(String id) {
-        Optional<Usuario> optional = repository.findById(id);
+        Optional<Usuario> optional = repository.findById(UUID.fromString(id));
         if(optional.isEmpty()) {
             throw new NotFoundException("Usuario não encontrado");
         }

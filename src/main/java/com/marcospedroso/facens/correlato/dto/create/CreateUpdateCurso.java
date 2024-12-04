@@ -19,5 +19,5 @@ public class CreateUpdateCurso {
     private String nome;
 	
 	@NotNull(message = "não pode ser nulo")
-	private int idFaculdade;
+	private Long idFaculdade;
 }
