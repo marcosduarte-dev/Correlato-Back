@@ -12,6 +12,7 @@ public class CursoDataMapper {
 	        		.id(entity.getId())
 	                .nome(entity.getNome())
 	                .faculdade(FaculdadeDataMapper.fromEntityToDTO(entity.getFaculdade()))
+	                .ativo(entity.isAtivo())
 	                .build();
 	 }
 	 

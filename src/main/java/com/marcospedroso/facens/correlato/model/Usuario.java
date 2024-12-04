@@ -46,4 +46,7 @@ public class Usuario {
 	
 	private boolean ativo;
 
+	public Usuario(String id) {
+		this.id = id;
+	}
 }

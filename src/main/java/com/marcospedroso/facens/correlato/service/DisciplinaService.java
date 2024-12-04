@@ -12,7 +12,7 @@ public interface DisciplinaService {
 
 	DisciplinaData create(CreateUpdateDisciplina dto);
 
-	DisciplinaData update(Long id, CreateUpdateDisciplina dto);
+	DisciplinaData update(CreateUpdateDisciplina dto);
 
     void delete(Long id);
 

@@ -13,6 +13,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class CreateUpdateDisciplina {
 	
+	private Long id;
+	
 	@NotBlank(message = "não pode ser vazio")
     private String codDisciplina;
 	

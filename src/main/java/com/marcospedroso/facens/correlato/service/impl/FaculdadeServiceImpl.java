@@ -47,7 +47,9 @@ public class FaculdadeServiceImpl implements FaculdadeService{
             throw new BadRequestException("ID deve ser nulo");
         }
 
-       Faculdade entity = repository.save(FaculdadeDataMapper.fromDTOCreateUpdateToEntity(dto));
+       Faculdade entity = FaculdadeDataMapper.fromDTOCreateUpdateToEntity(dto);
+       entity.setAtivo(true);
+       entity = repository.save(entity);
        
        return FaculdadeDataMapper.fromEntityToDTO(entity);
 	}

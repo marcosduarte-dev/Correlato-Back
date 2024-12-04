@@ -17,4 +17,5 @@ public class DisciplinaData {
     private Float cargaHoraria;
     private String ementa;
     private String programa;
+    private boolean ativo;
 }

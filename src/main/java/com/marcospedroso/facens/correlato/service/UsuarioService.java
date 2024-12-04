@@ -8,13 +8,13 @@ import com.marcospedroso.facens.correlato.dto.data.UsuarioData;
 public interface UsuarioService {
 	List<UsuarioData> findAll();
 
-	UsuarioData findById(Long id);
+	UsuarioData findById(String id);
 
 	UsuarioData create(CreateUpdateUsuario dto);
 
-	UsuarioData update(Long id, CreateUpdateUsuario dto);
+	UsuarioData update(CreateUpdateUsuario dto);
 
-    void delete(Long id);
+    void delete(String id);
 
-    UsuarioData toggleStatus(Long id);
+    UsuarioData toggleStatus(String id);
 }

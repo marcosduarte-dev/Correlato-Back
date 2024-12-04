@@ -47,7 +47,9 @@ public class CursoServiceImpl implements CursoService{
             throw new BadRequestException("ID deve ser nulo");
         }
 
-       Curso entity = repository.save(CursoDataMapper.fromDTOCreateUpdateToEntity(dto));
+       Curso entity = CursoDataMapper.fromDTOCreateUpdateToEntity(dto);
+       entity.setAtivo(true);
+       entity = repository.save(entity);
        
        return CursoDataMapper.fromEntityToDTO(entity);
 	}

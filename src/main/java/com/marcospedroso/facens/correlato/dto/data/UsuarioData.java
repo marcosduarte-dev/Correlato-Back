@@ -17,4 +17,5 @@ public class UsuarioData {
     private String nome;
     private FaculdadeData faculdade;
 	private TipoUsuario tipo;
+	private boolean ativo;
 }

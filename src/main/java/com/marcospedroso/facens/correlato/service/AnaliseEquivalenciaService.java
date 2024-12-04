@@ -5,14 +5,14 @@ import java.util.List;
 import com.marcospedroso.facens.correlato.dto.create.CreateUpdateAnaliseEquivalencia;
 import com.marcospedroso.facens.correlato.dto.data.AnaliseEquivalenciaData;
 
-public interface AnaliseEquivalencia {
+public interface AnaliseEquivalenciaService {
 	List<AnaliseEquivalenciaData> findAll();
 
 	AnaliseEquivalenciaData findById(Long id);
 
 	AnaliseEquivalenciaData create(CreateUpdateAnaliseEquivalencia dto);
 
-	AnaliseEquivalenciaData update(Long id, CreateUpdateAnaliseEquivalencia dto);
+	AnaliseEquivalenciaData update(CreateUpdateAnaliseEquivalencia dto);
 
     void delete(Long id);
 }

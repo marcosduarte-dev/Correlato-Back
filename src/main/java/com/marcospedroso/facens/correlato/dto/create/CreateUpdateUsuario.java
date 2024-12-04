@@ -15,6 +15,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class CreateUpdateUsuario {
 	
+	private String id;
+	
 	@NotBlank(message = "não pode ser vazio")
     private String email;
 	

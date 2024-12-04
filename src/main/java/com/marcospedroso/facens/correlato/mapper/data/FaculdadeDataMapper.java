@@ -10,6 +10,7 @@ public class FaculdadeDataMapper {
 	        return FaculdadeData.builder()
 	        		.id(entity.getId())
 	                .nome(entity.getNome())
+	                .ativo(entity.isAtivo())
 	                .build();
 	 }
 	 

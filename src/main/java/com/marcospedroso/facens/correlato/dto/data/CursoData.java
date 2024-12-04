@@ -13,4 +13,5 @@ public class CursoData {
 	private Long id;
     private String nome;
 	private FaculdadeData faculdade;
+	private boolean ativo;
 }

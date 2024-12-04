@@ -14,8 +14,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CreateUpdateAnaliseEquivalencia {
-	@NotNull(message = "não pode ser nulo")
-	private int idProfessorResponsavel;
+	
+	private long id;
+	
+	@NotBlank(message = "não pode ser vazio")
+	private String idProfessorResponsavel;
 	
 	@NotNull(message = "não pode ser nulo")
 	private int idDisciplinaOrigem;

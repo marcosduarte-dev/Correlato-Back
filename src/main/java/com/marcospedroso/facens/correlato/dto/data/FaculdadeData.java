@@ -12,4 +12,5 @@ import lombok.NoArgsConstructor;
 public class FaculdadeData {
 	private Long id;
     private String nome;
+    private boolean ativo;
 }

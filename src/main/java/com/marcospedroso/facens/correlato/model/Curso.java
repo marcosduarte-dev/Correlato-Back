@@ -34,4 +34,9 @@ public class Curso {
 	private Faculdade faculdade;
 	
 	private boolean ativo;
+	
+	public Curso(long idCurso) {
+		this.id = idCurso;
+	}
+
 }

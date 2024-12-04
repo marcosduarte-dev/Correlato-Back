@@ -13,8 +13,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class AnaliseEquivalenciaData {
 	private Long id;
-	private UsuarioData idProfessorResponsavel;
-	private DisciplinaData idDisciplinaOrigem;
-	private DisciplinaData idDisciplinaDestino;
+	private UsuarioData professorResponsavel;
+	private DisciplinaData disciplinaOrigem;
+	private DisciplinaData disciplinaDestino;
 	private StatusAnaliseEquivalencia status;
+	private boolean aprovado;
 }

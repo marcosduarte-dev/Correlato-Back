@@ -22,6 +22,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Table(name = "tb_disciplina")
 public class Disciplina {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -42,4 +43,8 @@ public class Disciplina {
 	private String programa;
 	
 	private boolean ativo;
+	
+	public Disciplina(long id) {
+		this.id = id;
+	}
 }
