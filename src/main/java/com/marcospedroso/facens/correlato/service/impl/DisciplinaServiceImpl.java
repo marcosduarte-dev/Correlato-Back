@@ -6,6 +6,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import com.marcospedroso.facens.correlato.dto.create.CreateUpdateDisciplina;
@@ -46,12 +47,19 @@ public class DisciplinaServiceImpl implements DisciplinaService{
 		if(Objects.nonNull(dto.getId())) {
             throw new BadRequestException("ID deve ser nulo");
         }
-
-       Disciplina entity = DisciplinaDataMapper.fromDTOCreateUpdateToEntity(dto);
-       entity.setAtivo(true);
-       repository.save(entity);
-       
-       return DisciplinaDataMapper.fromEntityToDTO(entity);
+		
+		try {
+			Disciplina entity = DisciplinaDataMapper.fromDTOCreateUpdateToEntity(dto);
+			entity.setAtivo(true);
+			repository.save(entity);
+	       
+			return DisciplinaDataMapper.fromEntityToDTO(entity);
+		} catch (DataIntegrityViolationException e) {
+			if (e.getMessage().contains("violates unique constraint"))
+				throw new DataIntegrityViolationException("Ja existe essa disciplina para esse curso.");
+			
+			throw new DataIntegrityViolationException(e.getLocalizedMessage());
+		}
 	}
 
 	@Override

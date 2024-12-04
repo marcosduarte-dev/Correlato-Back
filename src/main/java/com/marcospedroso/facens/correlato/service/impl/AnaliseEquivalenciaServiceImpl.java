@@ -6,6 +6,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import com.marcospedroso.facens.correlato.dto.create.CreateUpdateAnaliseEquivalencia;
@@ -46,10 +47,20 @@ public class AnaliseEquivalenciaServiceImpl implements AnaliseEquivalenciaServic
 		if(Objects.nonNull(dto.getId())) {
             throw new BadRequestException("ID deve ser nulo");
         }
+		
+		try {
+			AnaliseEquivalencia entity = repository.save(
+					AnaliseEquivalenciaDataMapper.fromDTOCreateUpdateToEntity(dto));
+		       
+		    return AnaliseEquivalenciaDataMapper.fromEntityToDTO(entity);
+		} catch (DataIntegrityViolationException e) {
+			if (e.getMessage().contains("violates unique constraint"))
+				throw new DataIntegrityViolationException("Ja existe uma analise entre essas duas disciplinas");
+			
+			throw new DataIntegrityViolationException(e.getLocalizedMessage());
+		}
 
-		AnaliseEquivalencia entity = repository.save(AnaliseEquivalenciaDataMapper.fromDTOCreateUpdateToEntity(dto));
-       
-       return AnaliseEquivalenciaDataMapper.fromEntityToDTO(entity);
+		
 	}
 
 	@Override

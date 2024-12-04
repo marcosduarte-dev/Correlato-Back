@@ -7,6 +7,7 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import com.marcospedroso.facens.correlato.dto.create.CreateUpdateUsuario;
@@ -48,11 +49,17 @@ public class UsuarioServiceImpl implements UsuarioService{
             throw new BadRequestException("ID deve ser nulo");
         }
 
-       Usuario entity = UsuarioDataMapper.fromDTOCreateUpdateToEntity(dto);
-       entity.setAtivo(true);
-       entity = repository.save(entity);
-       
-       return UsuarioDataMapper.fromEntityToDTO(entity);
+		try {
+			Usuario entity = UsuarioDataMapper.fromDTOCreateUpdateToEntity(dto);
+	    	entity.setAtivo(true);
+	    	entity = repository.save(entity);
+	       
+	    	return UsuarioDataMapper.fromEntityToDTO(entity);
+		} catch (DataIntegrityViolationException e) {
+			if (e.getMessage().contains("violates unique constraint"))
+				throw new DataIntegrityViolationException("Ja existe um usuario com esse email.");
+			throw new DataIntegrityViolationException(e.getLocalizedMessage());
+		}
 	}
 
 	@Override

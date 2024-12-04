@@ -6,6 +6,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import com.marcospedroso.facens.correlato.dto.create.CreateUpdateCurso;
@@ -46,12 +47,18 @@ public class CursoServiceImpl implements CursoService{
 		if(Objects.nonNull(dto.getId())) {
             throw new BadRequestException("ID deve ser nulo");
         }
-
-       Curso entity = CursoDataMapper.fromDTOCreateUpdateToEntity(dto);
-       entity.setAtivo(true);
-       entity = repository.save(entity);
-       
-       return CursoDataMapper.fromEntityToDTO(entity);
+		try {
+			Curso entity = CursoDataMapper.fromDTOCreateUpdateToEntity(dto);
+			entity.setAtivo(true);
+			entity = repository.save(entity);
+	       
+			return CursoDataMapper.fromEntityToDTO(entity);
+		} catch (DataIntegrityViolationException e) {
+			if (e.getMessage().contains("violates unique constraint"))
+				throw new DataIntegrityViolationException("Ja existe um curso com esse nome para essa faculdade.");
+		
+			throw new DataIntegrityViolationException(e.getLocalizedMessage());
+		}
 	}
 
 	@Override

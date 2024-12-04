@@ -6,6 +6,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import com.marcospedroso.facens.correlato.dto.create.CreateUpdateFaculdade;
@@ -44,14 +45,21 @@ public class FaculdadeServiceImpl implements FaculdadeService{
 	@Override
 	public FaculdadeData create(CreateUpdateFaculdade dto) {
 		if(Objects.nonNull(dto.getId())) {
-            throw new BadRequestException("ID deve ser nulo");
-        }
-
-       Faculdade entity = FaculdadeDataMapper.fromDTOCreateUpdateToEntity(dto);
-       entity.setAtivo(true);
-       entity = repository.save(entity);
-       
-       return FaculdadeDataMapper.fromEntityToDTO(entity);
+			throw new BadRequestException("ID deve ser nulo");
+		}
+		
+		try {
+			Faculdade entity = FaculdadeDataMapper.fromDTOCreateUpdateToEntity(dto);
+			entity.setAtivo(true);
+			entity = repository.save(entity);
+			
+			return FaculdadeDataMapper.fromEntityToDTO(entity);
+		} catch (DataIntegrityViolationException e) {
+			if (e.getMessage().contains("violates unique constraint"))
+				throw new DataIntegrityViolationException("Ja existe uma faculdade com esse nome");
+			
+			throw new DataIntegrityViolationException(e.getLocalizedMessage());
+		}
 	}
 
 	@Override
