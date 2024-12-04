@@ -13,7 +13,7 @@ import com.marcospedroso.facens.correlato.dto.data.AnaliseEquivalenciaData;
 import com.marcospedroso.facens.correlato.exception.BadRequestException;
 import com.marcospedroso.facens.correlato.exception.NotFoundException;
 import com.marcospedroso.facens.correlato.mapper.data.AnaliseEquivalenciaDataMapper;
-import com.marcospedroso.facens.correlato.model.AnaliseDeEquivalencia;
+import com.marcospedroso.facens.correlato.model.AnaliseEquivalencia;
 import com.marcospedroso.facens.correlato.repository.AnaliseEquivalenciaRepository;
 import com.marcospedroso.facens.correlato.service.AnaliseEquivalenciaService;
 
@@ -25,7 +25,7 @@ public class AnaliseEquivalenciaServiceImpl implements AnaliseEquivalenciaServic
 
 	@Override
 	public List<AnaliseEquivalenciaData> findAll() {
-		List<AnaliseDeEquivalencia> lista = repository.findAll();
+		List<AnaliseEquivalencia> lista = repository.findAll();
 		
 		if(lista.isEmpty()) {
 			throw new NotFoundException("Nenhuma AnaliseEquivalencia cadastrada!");
@@ -47,7 +47,7 @@ public class AnaliseEquivalenciaServiceImpl implements AnaliseEquivalenciaServic
             throw new BadRequestException("ID deve ser nulo");
         }
 
-		AnaliseDeEquivalencia entity = repository.save(AnaliseEquivalenciaDataMapper.fromDTOCreateUpdateToEntity(dto));
+		AnaliseEquivalencia entity = repository.save(AnaliseEquivalenciaDataMapper.fromDTOCreateUpdateToEntity(dto));
        
        return AnaliseEquivalenciaDataMapper.fromEntityToDTO(entity);
 	}
@@ -56,7 +56,7 @@ public class AnaliseEquivalenciaServiceImpl implements AnaliseEquivalenciaServic
 	public AnaliseEquivalenciaData update(CreateUpdateAnaliseEquivalencia dto) {
 		getAnaliseEquivalencia(dto.getId());
 		
-		AnaliseDeEquivalencia entity = repository.save(AnaliseEquivalenciaDataMapper.fromDTOCreateUpdateToEntity(dto));
+		AnaliseEquivalencia entity = repository.save(AnaliseEquivalenciaDataMapper.fromDTOCreateUpdateToEntity(dto));
 		
 		return AnaliseEquivalenciaDataMapper.fromEntityToDTO(entity);
 	}
@@ -68,8 +68,8 @@ public class AnaliseEquivalenciaServiceImpl implements AnaliseEquivalenciaServic
 		repository.deleteById(id);
 	}
 	
-	private AnaliseDeEquivalencia getAnaliseEquivalencia(Long id) {
-        Optional<AnaliseDeEquivalencia> optional = repository.findById(id);
+	private AnaliseEquivalencia getAnaliseEquivalencia(Long id) {
+        Optional<AnaliseEquivalencia> optional = repository.findById(id);
         if(optional.isEmpty()) {
             throw new NotFoundException("AnaliseEquivalencia não encontrado");
         }

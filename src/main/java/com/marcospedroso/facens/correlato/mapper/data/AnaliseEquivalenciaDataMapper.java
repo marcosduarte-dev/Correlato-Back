@@ -2,13 +2,13 @@ package com.marcospedroso.facens.correlato.mapper.data;
 
 import com.marcospedroso.facens.correlato.dto.create.CreateUpdateAnaliseEquivalencia;
 import com.marcospedroso.facens.correlato.dto.data.AnaliseEquivalenciaData;
-import com.marcospedroso.facens.correlato.model.AnaliseDeEquivalencia;
+import com.marcospedroso.facens.correlato.model.AnaliseEquivalencia;
 import com.marcospedroso.facens.correlato.model.Disciplina;
 import com.marcospedroso.facens.correlato.model.Usuario;
 
 public class AnaliseEquivalenciaDataMapper {
 	
-	 public static AnaliseEquivalenciaData fromEntityToDTO(AnaliseDeEquivalencia entity) {
+	 public static AnaliseEquivalenciaData fromEntityToDTO(AnaliseEquivalencia entity) {
 	        return AnaliseEquivalenciaData.builder()
 	        		.id(entity.getId())
 	        		.professorResponsavel(UsuarioDataMapper.fromEntityToDTO(entity.getProfessorResponsavel()))
@@ -19,8 +19,8 @@ public class AnaliseEquivalenciaDataMapper {
 	                .build();
 	 }
 	 
-	 public static AnaliseDeEquivalencia fromDTOCreateUpdateToEntity(CreateUpdateAnaliseEquivalencia dto) {
-	        return AnaliseDeEquivalencia.builder()
+	 public static AnaliseEquivalencia fromDTOCreateUpdateToEntity(CreateUpdateAnaliseEquivalencia dto) {
+	        return AnaliseEquivalencia.builder()
 	        		.id(dto.getId())
 	                .professorResponsavel(new Usuario(dto.getIdProfessorResponsavel()))
 	                .disciplinaOrigem(new Disciplina((long) dto.getIdDisciplinaOrigem()))
