@@ -2,7 +2,10 @@ package com.marcospedroso.facens.correlato.model;
 
 import java.util.UUID;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.marcospedroso.facens.correlato.dto.LoginRequest;
 import com.marcospedroso.facens.correlato.enums.TipoUsuario;
 
 import jakarta.persistence.Entity;
@@ -50,5 +53,9 @@ public class Usuario {
 
 	public Usuario(UUID id) {
 		this.id = id;
+	}
+
+	public boolean isLoginCorrect(LoginRequest dto, PasswordEncoder encoder) {
+		return encoder.matches(dto.getSenha(), this.senha);
 	}
 }

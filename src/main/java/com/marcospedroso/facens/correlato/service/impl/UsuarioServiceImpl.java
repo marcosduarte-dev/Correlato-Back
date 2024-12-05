@@ -1,15 +1,22 @@
 package com.marcospedroso.facens.correlato.service.impl;
 
+import java.time.Instant;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.oauth2.jwt.JwtClaimsSet;
+import org.springframework.security.oauth2.jwt.JwtEncoder;
+import org.springframework.security.oauth2.jwt.JwtEncoderParameters;
 import org.springframework.stereotype.Service;
 
+import com.marcospedroso.facens.correlato.dto.LoginRequest;
+import com.marcospedroso.facens.correlato.dto.LoginResponse;
 import com.marcospedroso.facens.correlato.dto.create.CreateUpdateUsuario;
 import com.marcospedroso.facens.correlato.dto.data.UsuarioData;
 import com.marcospedroso.facens.correlato.exception.BadRequestException;
@@ -19,11 +26,15 @@ import com.marcospedroso.facens.correlato.model.Usuario;
 import com.marcospedroso.facens.correlato.repository.UsuarioRepository;
 import com.marcospedroso.facens.correlato.service.UsuarioService;
 
+import lombok.RequiredArgsConstructor;
+
 @Service
+@RequiredArgsConstructor
 public class UsuarioServiceImpl implements UsuarioService{
 	
-	@Autowired
-	private UsuarioRepository repository;
+	private final UsuarioRepository repository;
+	private final JwtEncoder jwtEncoder;
+	private final BCryptPasswordEncoder passwordEncoder;
 
 	@Override
 	public List<UsuarioData> findAll() {
@@ -52,6 +63,7 @@ public class UsuarioServiceImpl implements UsuarioService{
 		try {
 			Usuario entity = UsuarioDataMapper.fromDTOCreateUpdateToEntity(dto);
 	    	entity.setAtivo(true);
+	    	entity.setSenha(passwordEncoder.encode(entity.getSenha()));
 	    	entity = repository.save(entity);
 	       
 	    	return UsuarioDataMapper.fromEntityToDTO(entity);
@@ -87,6 +99,29 @@ public class UsuarioServiceImpl implements UsuarioService{
 		entity = repository.save(entity);
 		
 		return UsuarioDataMapper.fromEntityToDTO(entity);
+	}
+	
+	@Override
+	public LoginResponse login(LoginRequest dto) {
+		var entity = repository.findByEmail(dto.getEmail());
+		
+		if(entity.isEmpty() || !entity.get().isLoginCorrect(dto, passwordEncoder)) {
+			throw new BadCredentialsException("Usuario ou senha invalidos!");
+		}
+		
+		var now = Instant.now();
+		var expiresIn = 3600L;
+		
+		var claims = JwtClaimsSet.builder()
+				.issuer("correlato-api")
+				.subject(entity.get().getId().toString())
+				.expiresAt(now.plusSeconds(expiresIn))
+				.issuedAt(now)
+				.claim("scope", entity.get().getTipo())
+				.build();
+		
+		var jwtToken = jwtEncoder.encode(JwtEncoderParameters.from(claims)).getTokenValue();
+		return new LoginResponse(jwtToken, expiresIn);
 	}
 	
 	private Usuario getUsuario(String id) {

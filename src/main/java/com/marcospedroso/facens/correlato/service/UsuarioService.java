@@ -2,6 +2,8 @@ package com.marcospedroso.facens.correlato.service;
 
 import java.util.List;
 
+import com.marcospedroso.facens.correlato.dto.LoginRequest;
+import com.marcospedroso.facens.correlato.dto.LoginResponse;
 import com.marcospedroso.facens.correlato.dto.create.CreateUpdateUsuario;
 import com.marcospedroso.facens.correlato.dto.data.UsuarioData;
 
@@ -17,4 +19,6 @@ public interface UsuarioService {
     void delete(String id);
 
     UsuarioData toggleStatus(String id);
+    
+    LoginResponse login(LoginRequest dto);
 }

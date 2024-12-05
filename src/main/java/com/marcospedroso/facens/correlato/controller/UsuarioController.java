@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.marcospedroso.facens.correlato.dto.LoginRequest;
+import com.marcospedroso.facens.correlato.dto.LoginResponse;
 import com.marcospedroso.facens.correlato.dto.create.CreateUpdateUsuario;
 import com.marcospedroso.facens.correlato.dto.data.UsuarioData;
 import com.marcospedroso.facens.correlato.service.UsuarioService;
@@ -28,6 +31,7 @@ public class UsuarioController {
 	private UsuarioService service;
 	
 	@GetMapping
+	@PreAuthorize("hasAuthority('SCOPE_SECRETARIO')")
     public ResponseEntity<List<UsuarioData>> findAll() {
         return ResponseEntity.status(HttpStatus.OK).body(service.findAll());
     }
@@ -52,6 +56,11 @@ public class UsuarioController {
         service.delete(id);
 
         return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
+    }
+    
+    @PostMapping("/login")
+    public ResponseEntity<LoginResponse> login(@Valid @RequestBody LoginRequest dto) {
+    	return ResponseEntity.status(HttpStatus.OK).body(service.login(dto));
     }
 
 }

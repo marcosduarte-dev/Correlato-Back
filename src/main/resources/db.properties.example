@@ -1,0 +1,3 @@
+spring.datasource.url=jdbc:postgresql://localhost:6543/postgres?prepareThreshold=0
+spring.datasource.username=
+spring.datasource.password=
