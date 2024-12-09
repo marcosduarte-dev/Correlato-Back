@@ -15,6 +15,7 @@ import org.springframework.security.oauth2.jwt.JwtEncoder;
 import org.springframework.security.oauth2.jwt.JwtEncoderParameters;
 import org.springframework.stereotype.Service;
 
+import com.marcospedroso.facens.correlato.dto.EmailCriacaoUsuarioDto;
 import com.marcospedroso.facens.correlato.dto.LoginRequest;
 import com.marcospedroso.facens.correlato.dto.LoginResponse;
 import com.marcospedroso.facens.correlato.dto.create.CreateUpdateUsuario;
@@ -35,6 +36,7 @@ public class UsuarioServiceImpl implements UsuarioService{
 	private final UsuarioRepository repository;
 	private final JwtEncoder jwtEncoder;
 	private final BCryptPasswordEncoder passwordEncoder;
+	private final EmailServiceImpl emailService;
 
 	@Override
 	public List<UsuarioData> findAll() {
@@ -56,6 +58,7 @@ public class UsuarioServiceImpl implements UsuarioService{
 
 	@Override
 	public UsuarioData create(CreateUpdateUsuario dto) {
+		//TODO: Deixar envio de email assincrono
 		if(Objects.nonNull(dto.getId())) {
             throw new BadRequestException("ID deve ser nulo");
         }
@@ -65,8 +68,22 @@ public class UsuarioServiceImpl implements UsuarioService{
 	    	entity.setAtivo(true);
 	    	entity.setSenha(passwordEncoder.encode(entity.getSenha()));
 	    	entity = repository.save(entity);
+
+			UsuarioData data = UsuarioDataMapper.fromEntityToDTO(entity);
+
+			if(!Objects.isNull(data)) {
+
+				EmailCriacaoUsuarioDto emailDto = new EmailCriacaoUsuarioDto(
+					data.getEmail(),
+					data.getNome(),
+					dto.getSenha(),
+					data.getTipo().toString()
+				);
+
+				emailService.enviaEmailNovoUsuario(emailDto);
+			}
 	       
-	    	return UsuarioDataMapper.fromEntityToDTO(entity);
+	    	return data;
 		} catch (DataIntegrityViolationException e) {
 			if (e.getMessage().contains("violates unique constraint"))
 				throw new DataIntegrityViolationException("Ja existe um usuario com esse email.");

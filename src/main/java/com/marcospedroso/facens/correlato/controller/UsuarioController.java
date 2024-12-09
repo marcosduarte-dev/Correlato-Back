@@ -26,10 +26,10 @@ import jakarta.validation.Valid;
 @RestController
 @RequestMapping("/usuarios")
 public class UsuarioController {
-	
+
 	@Autowired
 	private UsuarioService service;
-	
+
 	@GetMapping
 	@PreAuthorize("hasAuthority('SCOPE_SECRETARIO')")
     public ResponseEntity<List<UsuarioData>> findAll() {
@@ -57,7 +57,7 @@ public class UsuarioController {
 
         return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
     }
-    
+
     @PostMapping("/login")
     public ResponseEntity<LoginResponse> login(@Valid @RequestBody LoginRequest dto) {
     	return ResponseEntity.status(HttpStatus.OK).body(service.login(dto));
