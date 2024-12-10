@@ -2,7 +2,6 @@ package com.marcospedroso.facens.correlato.controller;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -22,13 +21,14 @@ import com.marcospedroso.facens.correlato.dto.data.UsuarioData;
 import com.marcospedroso.facens.correlato.service.UsuarioService;
 
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("/usuarios")
+@RequiredArgsConstructor
 public class UsuarioController {
 
-	@Autowired
-	private UsuarioService service;
+	private final UsuarioService service;
 
 	@GetMapping
 	@PreAuthorize("hasAuthority('SCOPE_SECRETARIO')")

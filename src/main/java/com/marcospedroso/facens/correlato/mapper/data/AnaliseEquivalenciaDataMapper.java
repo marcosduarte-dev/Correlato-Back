@@ -9,6 +9,10 @@ import com.marcospedroso.facens.correlato.model.Disciplina;
 import com.marcospedroso.facens.correlato.model.Usuario;
 
 public class AnaliseEquivalenciaDataMapper {
+
+	private AnaliseEquivalenciaDataMapper() {
+		throw new IllegalStateException("AnaliseEquivalenciaDataMapper class");
+	}
 	
 	 public static AnaliseEquivalenciaData fromEntityToDTO(AnaliseEquivalencia entity) {
 		 AnaliseEquivalenciaData analiseEquivalenciaData = AnaliseEquivalenciaData.builder()
