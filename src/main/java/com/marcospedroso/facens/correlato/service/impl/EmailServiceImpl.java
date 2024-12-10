@@ -21,6 +21,7 @@ public class EmailServiceImpl {
 
     public void enviaEmailNovoUsuario(EmailCriacaoUsuarioDto dto) {
         try {
+            System.out.println("Enviando email...");
             //TODO: Link no botao do template do email!
             MimeMessage message = javaMailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(message, true);
