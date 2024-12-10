@@ -30,6 +30,5 @@ public class CreateUpdateDisciplina {
 	@NotBlank(message = "não pode ser vazio")
     private String ementa;
 	
-	@NotBlank(message = "não pode ser vazio")
     private String programa;
 }
