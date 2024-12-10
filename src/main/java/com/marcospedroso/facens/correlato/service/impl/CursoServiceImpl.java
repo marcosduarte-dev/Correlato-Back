@@ -5,7 +5,6 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
@@ -18,11 +17,14 @@ import com.marcospedroso.facens.correlato.model.Curso;
 import com.marcospedroso.facens.correlato.repository.CursoRepository;
 import com.marcospedroso.facens.correlato.service.CursoService;
 
+import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
+
 @Service
+@RequiredArgsConstructor
 public class CursoServiceImpl implements CursoService{
 	
-	@Autowired
-	private CursoRepository repository;
+	private final CursoRepository repository;
 
 	@Override
 	public List<CursoData> findAll() {
@@ -43,6 +45,7 @@ public class CursoServiceImpl implements CursoService{
 	}
 
 	@Override
+	@Transactional
 	public CursoData create(CreateUpdateCurso dto) {
 		if(Objects.nonNull(dto.getId())) {
             throw new BadRequestException("ID deve ser nulo");
@@ -62,6 +65,7 @@ public class CursoServiceImpl implements CursoService{
 	}
 
 	@Override
+	@Transactional
 	public CursoData update(CreateUpdateCurso dto) {
 		getCurso(dto.getId());
 		
@@ -71,6 +75,7 @@ public class CursoServiceImpl implements CursoService{
 	}
 
 	@Override
+	@Transactional
 	public void delete(Long id) {
 		getCurso(id);
 		
@@ -78,6 +83,7 @@ public class CursoServiceImpl implements CursoService{
 	}
 
 	@Override
+	@Transactional
 	public CursoData toggleStatus(Long id) {
 		Curso entity = getCurso(id);
 		

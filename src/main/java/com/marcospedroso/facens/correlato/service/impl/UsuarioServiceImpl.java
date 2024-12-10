@@ -29,6 +29,7 @@ import com.marcospedroso.facens.correlato.model.Usuario;
 import com.marcospedroso.facens.correlato.repository.UsuarioRepository;
 import com.marcospedroso.facens.correlato.service.UsuarioService;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -59,6 +60,7 @@ public class UsuarioServiceImpl implements UsuarioService{
 	}
 
 	@Override
+	@Transactional
 	public UsuarioData create(CreateUpdateUsuario dto) {
 
 		if(Objects.nonNull(dto.getId())) {
@@ -94,6 +96,7 @@ public class UsuarioServiceImpl implements UsuarioService{
 	}
 
 	@Override
+	@Transactional
 	public UsuarioData update(CreateUpdateUsuario dto) {
 		getUsuario(dto.getId());
 
@@ -103,6 +106,7 @@ public class UsuarioServiceImpl implements UsuarioService{
 	}
 
 	@Override
+	@Transactional
 	public void delete(String id) {
 		getUsuario(id);
 
@@ -110,6 +114,7 @@ public class UsuarioServiceImpl implements UsuarioService{
 	}
 
 	@Override
+	@Transactional
 	public UsuarioData toggleStatus(String id) {
 		Usuario entity = getUsuario(id);
 

@@ -5,7 +5,6 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
@@ -18,11 +17,14 @@ import com.marcospedroso.facens.correlato.model.Faculdade;
 import com.marcospedroso.facens.correlato.repository.FaculdadeRepository;
 import com.marcospedroso.facens.correlato.service.FaculdadeService;
 
+import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
+
 @Service
+@RequiredArgsConstructor
 public class FaculdadeServiceImpl implements FaculdadeService{
 	
-	@Autowired
-	private FaculdadeRepository repository;
+	private final FaculdadeRepository repository;
 
 	@Override
 	public List<FaculdadeData> findAll() {
@@ -43,6 +45,7 @@ public class FaculdadeServiceImpl implements FaculdadeService{
 	}
 
 	@Override
+	@Transactional
 	public FaculdadeData create(CreateUpdateFaculdade dto) {
 		if(Objects.nonNull(dto.getId())) {
 			throw new BadRequestException("ID deve ser nulo");
@@ -63,6 +66,7 @@ public class FaculdadeServiceImpl implements FaculdadeService{
 	}
 
 	@Override
+	@Transactional
 	public FaculdadeData update(CreateUpdateFaculdade dto) {
 		getFaculdade(dto.getId());
 		
@@ -72,6 +76,7 @@ public class FaculdadeServiceImpl implements FaculdadeService{
 	}
 
 	@Override
+	@Transactional
 	public void delete(Long id) {
 		getFaculdade(id);
 		
@@ -79,6 +84,7 @@ public class FaculdadeServiceImpl implements FaculdadeService{
 	}
 
 	@Override
+	@Transactional
 	public FaculdadeData toggleStatus(Long id) {
 		Faculdade entity = getFaculdade(id);
 		

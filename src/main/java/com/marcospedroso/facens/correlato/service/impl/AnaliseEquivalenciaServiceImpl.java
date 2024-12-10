@@ -24,6 +24,7 @@ import com.marcospedroso.facens.correlato.repository.DisciplinaRepository;
 import com.marcospedroso.facens.correlato.repository.UsuarioRepository;
 import com.marcospedroso.facens.correlato.service.AnaliseEquivalenciaService;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -54,6 +55,7 @@ public class AnaliseEquivalenciaServiceImpl implements AnaliseEquivalenciaServic
 	}
 
 	@Override
+	@Transactional
 	public AnaliseEquivalenciaData create(CreateUpdateAnaliseEquivalencia dto) {
 		if(Objects.nonNull(dto.getId())) {
             throw new BadRequestException("ID deve ser nulo");
@@ -85,6 +87,7 @@ public class AnaliseEquivalenciaServiceImpl implements AnaliseEquivalenciaServic
 	}
 
 	@Override
+	@Transactional
 	public AnaliseEquivalenciaData update(CreateUpdateAnaliseEquivalencia dto) {
 		getAnaliseEquivalencia(dto.getId());
 		
@@ -94,6 +97,7 @@ public class AnaliseEquivalenciaServiceImpl implements AnaliseEquivalenciaServic
 	}
 
 	@Override
+	@Transactional
 	public void delete(Long id) {
 		getAnaliseEquivalencia(id);
 		

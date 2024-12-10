@@ -20,6 +20,7 @@ import com.marcospedroso.facens.correlato.model.IAResponse;
 import com.marcospedroso.facens.correlato.repository.IAResponseRepository;
 import com.marcospedroso.facens.correlato.utils.JsonUtils;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 
 
@@ -30,6 +31,7 @@ public class IARequestServiceImpl {
 
     ResourceBundle res = ResourceBundle.getBundle("db");
 
+    @Transactional
     public IAResponseData analisarEquivalenciaPorIA(AnaliseEquivalenciaData data) {
 
         RestTemplate restTemplate = new RestTemplate();
