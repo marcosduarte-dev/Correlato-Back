@@ -5,7 +5,6 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
@@ -18,11 +17,14 @@ import com.marcospedroso.facens.correlato.model.Disciplina;
 import com.marcospedroso.facens.correlato.repository.DisciplinaRepository;
 import com.marcospedroso.facens.correlato.service.DisciplinaService;
 
+import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
+
 @Service
+@RequiredArgsConstructor
 public class DisciplinaServiceImpl implements DisciplinaService{
 	
-	@Autowired
-	private DisciplinaRepository repository;
+	private final DisciplinaRepository repository;
 
 	@Override
 	public List<DisciplinaData> findAll() {
@@ -43,6 +45,7 @@ public class DisciplinaServiceImpl implements DisciplinaService{
 	}
 
 	@Override
+	@Transactional
 	public DisciplinaData create(CreateUpdateDisciplina dto) {
 		if(Objects.nonNull(dto.getId())) {
             throw new BadRequestException("ID deve ser nulo");
@@ -63,6 +66,7 @@ public class DisciplinaServiceImpl implements DisciplinaService{
 	}
 
 	@Override
+	@Transactional
 	public DisciplinaData update(CreateUpdateDisciplina dto) {
 		getDisciplina(dto.getId());
 		
@@ -72,6 +76,7 @@ public class DisciplinaServiceImpl implements DisciplinaService{
 	}
 
 	@Override
+	@Transactional
 	public void delete(Long id) {
 		getDisciplina(id);
 		
@@ -79,6 +84,7 @@ public class DisciplinaServiceImpl implements DisciplinaService{
 	}
 
 	@Override
+	@Transactional
 	public DisciplinaData toggleStatus(Long id) {
 		Disciplina entity = getDisciplina(id);
 		

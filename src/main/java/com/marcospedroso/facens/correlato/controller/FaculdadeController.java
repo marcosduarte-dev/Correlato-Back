@@ -2,7 +2,6 @@ package com.marcospedroso.facens.correlato.controller;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -19,13 +18,14 @@ import com.marcospedroso.facens.correlato.dto.data.FaculdadeData;
 import com.marcospedroso.facens.correlato.service.FaculdadeService;
 
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("/faculdades")
+@RequiredArgsConstructor
 public class FaculdadeController {
 	
-	@Autowired
-	private FaculdadeService service;
+	private final FaculdadeService service;
 	
 	@GetMapping
     public ResponseEntity<List<FaculdadeData>> findAll() {

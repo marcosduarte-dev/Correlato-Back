@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.marcospedroso.facens.correlato.enums.StatusAnaliseEquivalencia;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -42,6 +44,7 @@ public class AnaliseEquivalencia {
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 	private Disciplina disciplinaDestino;
 	
+	@Enumerated(EnumType.STRING)
 	private StatusAnaliseEquivalencia status;
 	
 	private boolean aprovado;

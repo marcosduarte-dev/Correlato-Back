@@ -19,13 +19,14 @@ import com.marcospedroso.facens.correlato.dto.data.AnaliseEquivalenciaData;
 import com.marcospedroso.facens.correlato.service.AnaliseEquivalenciaService;
 
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("/analise-equivalencias")
+@RequiredArgsConstructor
 public class AnaliseEquivalenciaController {
-	
-	@Autowired
-	private AnaliseEquivalenciaService service;
+
+	private final AnaliseEquivalenciaService service;
 	
 	@GetMapping
     public ResponseEntity<List<AnaliseEquivalenciaData>> findAll() {
