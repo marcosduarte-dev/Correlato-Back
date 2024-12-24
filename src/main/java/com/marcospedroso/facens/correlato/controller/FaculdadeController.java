@@ -32,6 +32,11 @@ public class FaculdadeController {
         return ResponseEntity.status(HttpStatus.OK).body(service.findAll());
     }
 
+    @GetMapping("/ativos")
+    public ResponseEntity<List<FaculdadeData>> findAllAtivos() {
+        return ResponseEntity.status(HttpStatus.OK).body(service.findAllAtivos());
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<FaculdadeData> findById(@PathVariable Long id) {
         return ResponseEntity.status(HttpStatus.OK).body(service.findById(id));

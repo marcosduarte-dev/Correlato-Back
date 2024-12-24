@@ -60,7 +60,6 @@ public class UsuarioServiceImpl implements UsuarioService{
 	}
 
 	@Override
-	@Transactional
 	public UsuarioData create(CreateUpdateUsuario dto) {
 
 		if(Objects.nonNull(dto.getId())) {
@@ -85,6 +84,7 @@ public class UsuarioServiceImpl implements UsuarioService{
 				);
 
 				eventPublisher.publishEvent(new EmailEvent(emailDto));
+
 			}
 
 	    	return data;

@@ -26,6 +26,7 @@ public class CursoDataMapper {
 	        		.id(dto.getId())
 	                .nome(dto.getNome())
 	                .faculdade(new Faculdade((long) dto.getIdFaculdade()))
+					.ativo(true)
 	                .build();
 	 }
 }

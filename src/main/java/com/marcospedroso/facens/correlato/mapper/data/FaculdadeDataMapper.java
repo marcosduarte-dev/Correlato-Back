@@ -18,6 +18,7 @@ public class FaculdadeDataMapper {
 	        return Faculdade.builder()
 	        		.id(dto.getId())
 	                .nome(dto.getNome())
+					.ativo(true)
 	                .build();
 	 }
 }

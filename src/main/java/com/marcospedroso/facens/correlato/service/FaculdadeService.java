@@ -8,6 +8,8 @@ import com.marcospedroso.facens.correlato.dto.data.FaculdadeData;
 public interface FaculdadeService {
 	List<FaculdadeData> findAll();
 
+	List<FaculdadeData> findAllAtivos();
+
 	FaculdadeData findById(Long id);
 
 	FaculdadeData create(CreateUpdateFaculdade dto);

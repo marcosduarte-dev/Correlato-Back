@@ -55,7 +55,6 @@ public class AnaliseEquivalenciaServiceImpl implements AnaliseEquivalenciaServic
 	}
 
 	@Override
-	@Transactional
 	public AnaliseEquivalenciaData create(CreateUpdateAnaliseEquivalencia dto) {
 		if(Objects.nonNull(dto.getId())) {
             throw new BadRequestException("ID deve ser nulo");
@@ -73,7 +72,9 @@ public class AnaliseEquivalenciaServiceImpl implements AnaliseEquivalenciaServic
 				getDisciplina(entity.getDisciplinaDestino().getId()),
 				getUsuario(entity.getProfessorResponsavel().getId().toString()));
 
-			eventPublisher.publishEvent(new IARequestEvent(data));
+			if(entity.getId() != null) {
+				eventPublisher.publishEvent(new IARequestEvent(data));
+			}
 
 		    return data;
 		} catch (DataIntegrityViolationException e) {
