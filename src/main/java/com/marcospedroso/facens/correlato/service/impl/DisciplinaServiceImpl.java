@@ -40,6 +40,19 @@ public class DisciplinaServiceImpl implements DisciplinaService{
 	}
 
 	@Override
+	public List<DisciplinaData> findAllAtivos() {
+		List<Disciplina> lista = repository.findAllByAtivo(true);
+		
+		if(lista.isEmpty()) {
+			throw new NotFoundException("Nenhuma Disciplina ativa encontrada!");
+		}
+		
+		return lista.stream()
+				.map(DisciplinaDataMapper::fromEntityToDTO)
+				.collect(Collectors.toList());
+	}
+
+	@Override
 	public DisciplinaData findById(Long id) {
 		return DisciplinaDataMapper.fromEntityToDTO(getDisciplina(id));
 	}

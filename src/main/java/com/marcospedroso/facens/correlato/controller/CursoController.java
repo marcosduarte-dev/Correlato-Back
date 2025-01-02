@@ -32,6 +32,16 @@ public class CursoController {
         return ResponseEntity.status(HttpStatus.OK).body(service.findAll());
     }
 
+    @GetMapping("/ativos")
+    public ResponseEntity<List<CursoData>> findAllAtivos() {
+        return ResponseEntity.status(HttpStatus.OK).body(service.findAllAtivos());
+    }
+
+    @GetMapping("/faculdade/{id}")
+    public ResponseEntity<List<CursoData>> findByFaculdade(@PathVariable Long id) {
+        return ResponseEntity.status(HttpStatus.OK).body(service.findByFaculdade(id));
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<CursoData> findById(@PathVariable Long id) {
         return ResponseEntity.status(HttpStatus.OK).body(service.findById(id));

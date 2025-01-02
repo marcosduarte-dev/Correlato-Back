@@ -14,7 +14,9 @@ import com.marcospedroso.facens.correlato.exception.BadRequestException;
 import com.marcospedroso.facens.correlato.exception.NotFoundException;
 import com.marcospedroso.facens.correlato.mapper.data.CursoDataMapper;
 import com.marcospedroso.facens.correlato.model.Curso;
+import com.marcospedroso.facens.correlato.model.Faculdade;
 import com.marcospedroso.facens.correlato.repository.CursoRepository;
+import com.marcospedroso.facens.correlato.repository.FaculdadeRepository;
 import com.marcospedroso.facens.correlato.service.CursoService;
 
 import jakarta.transaction.Transactional;
@@ -25,6 +27,7 @@ import lombok.RequiredArgsConstructor;
 public class CursoServiceImpl implements CursoService{
 	
 	private final CursoRepository repository;
+	private final FaculdadeRepository faculdadeRepository;
 
 	@Override
 	public List<CursoData> findAll() {
@@ -32,6 +35,34 @@ public class CursoServiceImpl implements CursoService{
 		
 		if(lista.isEmpty()) {
 			throw new NotFoundException("Nenhum Curso cadastrado!");
+		}
+		
+		return lista.stream()
+				.map(CursoDataMapper::fromEntityToDTO)
+				.collect(Collectors.toList());
+	}
+
+	@Override
+	public List<CursoData> findAllAtivos() {
+		List<Curso> lista = repository.findAllByAtivo(true);
+		
+		if(lista.isEmpty()) {
+			throw new NotFoundException("Nenhum curso ativo encontrado!");
+		}
+		
+		return lista.stream()
+				.map(CursoDataMapper::fromEntityToDTO)
+				.collect(Collectors.toList());
+	}
+
+	@Override
+	public List<CursoData> findByFaculdade(Long id) {
+		Faculdade faculdade = getFaculdade(id);
+
+		List<Curso> lista = repository.findByFaculdade(faculdade);
+		
+		if(lista.isEmpty()) {
+			throw new NotFoundException("Nenhum curso com essa faculdade encontrada!");
 		}
 		
 		return lista.stream()
@@ -98,6 +129,14 @@ public class CursoServiceImpl implements CursoService{
         Optional<Curso> optional = repository.findById(id);
         if(optional.isEmpty()) {
             throw new NotFoundException("Curso não encontrado");
+        }
+        return optional.get();
+    }
+
+	private Faculdade getFaculdade(Long id) {
+        Optional<Faculdade> optional = faculdadeRepository.findById(id);
+        if(optional.isEmpty()) {
+            throw new NotFoundException("Faculdade não encontrado");
         }
         return optional.get();
     }

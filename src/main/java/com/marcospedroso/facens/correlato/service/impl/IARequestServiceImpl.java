@@ -41,23 +41,23 @@ public class IARequestServiceImpl {
             "Tarefa: Analisar a equivalência entre duas disciplinas.\n\n" +
             "Descrição: Você receberá a ementa de duas disciplinas, sendo a primeira a disciplina " +
             "de origem e a segunda a disciplina de destino. Sua tarefa é analisar as equivalências " +
-            "e diferenças entre as duas ementas e determinar se a disciplina de destino pode eliminar " +
-            "a disciplina de origem. Para que a disciplina de destino elimine a disciplina de origem, " +
-            "é necessário que a carga horária e a ementa da disciplina de destino cubram pelo menos " +
-            "75%% do conteúdo programático e da carga horária da disciplina de origem. Lembrando que " +
-            "algumas universidades escrevem de manerias mais genéricas e outras mais específicas então " +
+            "e diferenças entre as duas ementas e determinar se a disciplina de origem pode eliminar " +
+            "a disciplina de destino. Para que a disciplina de origem elimine a disciplina de destino, " +
+            "é necessário que a carga horária e a ementa da disciplina de origem cubram pelo menos " +
+            "75%% do conteúdo programático e da carga horária da disciplina de destino. Lembrando que " +
+            "algumas universidades escrevem de maneiras mais genéricas e outras mais específicas então " +
             "seja flexível quanto a isso.\n\n" +
             "Instruções:\n" +
             "1. Analise a ementa da disciplina de origem e da disciplina de destino.\n" +
             "2. Compare a carga horária e o conteúdo programático das duas disciplinas.\n" +
-            "3. Determine se a disciplina de destino pode eliminar a disciplina de origem com base " +
+            "3. Determine se a disciplina de origem pode eliminar a disciplina de destino com base " +
             "nos critérios de pelo menos 75%% de cobertura da carga horária e do conteúdo programático.\n\n" +
             "Ementa da Disciplina de Origem:\n%s\n\n" +
             "Ementa da Disciplina de Destino:\n%s\n\n" +
             "Carga Horária da Disciplina de Origem: %s\n" +
             "Carga Horária da Disciplina de Destino: %s\n\n" +
             "Nota: Por favor, forneça sua análise sobre a equivalência das disciplinas e se a " +
-            "disciplina de destino pode eliminar a disciplina de origem com base nos critérios estabelecidos.",
+            "disciplina de origem pode eliminar a disciplina de destino com base nos critérios estabelecidos.",
             data.getDisciplinaOrigem().getEmenta(), data.getDisciplinaDestino().getEmenta(),
             data.getDisciplinaOrigem().getCargaHoraria().toString(), data.getDisciplinaDestino().getCargaHoraria().toString()
         ));

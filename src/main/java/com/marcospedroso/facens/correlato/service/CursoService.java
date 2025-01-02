@@ -8,6 +8,10 @@ import com.marcospedroso.facens.correlato.dto.data.CursoData;
 public interface CursoService {
 	List<CursoData> findAll();
 
+	List<CursoData> findAllAtivos();
+
+	List<CursoData> findByFaculdade(Long id);
+
 	CursoData findById(Long id);
 
 	CursoData create(CreateUpdateCurso dto);
