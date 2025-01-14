@@ -31,7 +31,7 @@ public class UsuarioController {
 	private final UsuarioService service;
 
 	@GetMapping
-	@PreAuthorize("hasAuthority('SCOPE_SECRETARIO')")
+	// @PreAuthorize("hasAuthority('SCOPE_SECRETARIO')")
     public ResponseEntity<List<UsuarioData>> findAll() {
         return ResponseEntity.status(HttpStatus.OK).body(service.findAll());
     }
