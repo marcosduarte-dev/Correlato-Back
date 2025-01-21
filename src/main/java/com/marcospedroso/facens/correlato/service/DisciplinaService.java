@@ -10,6 +10,8 @@ public interface DisciplinaService {
 
 	List<DisciplinaData> findAllAtivos();
 
+	List<DisciplinaData> findByCursoId(Long id);
+
 	DisciplinaData findById(Long id);
 
 	DisciplinaData create(CreateUpdateDisciplina dto);

@@ -13,7 +13,9 @@ import com.marcospedroso.facens.correlato.dto.data.DisciplinaData;
 import com.marcospedroso.facens.correlato.exception.BadRequestException;
 import com.marcospedroso.facens.correlato.exception.NotFoundException;
 import com.marcospedroso.facens.correlato.mapper.data.DisciplinaDataMapper;
+import com.marcospedroso.facens.correlato.model.Curso;
 import com.marcospedroso.facens.correlato.model.Disciplina;
+import com.marcospedroso.facens.correlato.repository.CursoRepository;
 import com.marcospedroso.facens.correlato.repository.DisciplinaRepository;
 import com.marcospedroso.facens.correlato.service.DisciplinaService;
 
@@ -25,6 +27,7 @@ import lombok.RequiredArgsConstructor;
 public class DisciplinaServiceImpl implements DisciplinaService{
 	
 	private final DisciplinaRepository repository;
+	private final CursoRepository cursoRepository;
 
 	@Override
 	public List<DisciplinaData> findAll() {
@@ -45,6 +48,21 @@ public class DisciplinaServiceImpl implements DisciplinaService{
 		
 		if(lista.isEmpty()) {
 			throw new NotFoundException("Nenhuma Disciplina ativa encontrada!");
+		}
+		
+		return lista.stream()
+				.map(DisciplinaDataMapper::fromEntityToDTO)
+				.collect(Collectors.toList());
+	}
+
+	@Override
+	public List<DisciplinaData> findByCursoId(Long id) {
+		Curso curso = getCurso(id);
+
+		List<Disciplina> lista = repository.findByCurso(curso);
+		
+		if(lista.isEmpty()) {
+			throw new NotFoundException("Nenhuma disciplina para esse curso encontrada!");
 		}
 		
 		return lista.stream()
@@ -112,6 +130,14 @@ public class DisciplinaServiceImpl implements DisciplinaService{
         Optional<Disciplina> optional = repository.findById(id);
         if(optional.isEmpty()) {
             throw new NotFoundException("Disciplina não encontrada");
+        }
+        return optional.get();
+    }
+
+	private Curso getCurso(Long id) {
+        Optional<Curso> optional = cursoRepository.findById(id);
+        if(optional.isEmpty()) {
+            throw new NotFoundException("Curso não encontrado");
         }
         return optional.get();
     }
