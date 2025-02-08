@@ -22,6 +22,7 @@ import com.marcospedroso.facens.correlato.dto.LoginResponse;
 import com.marcospedroso.facens.correlato.dto.create.CreateUpdateUsuario;
 import com.marcospedroso.facens.correlato.dto.data.UsuarioData;
 import com.marcospedroso.facens.correlato.dto.events.EmailEvent;
+import com.marcospedroso.facens.correlato.enums.TipoUsuario;
 import com.marcospedroso.facens.correlato.exception.BadRequestException;
 import com.marcospedroso.facens.correlato.exception.NotFoundException;
 import com.marcospedroso.facens.correlato.mapper.data.UsuarioDataMapper;
@@ -57,6 +58,19 @@ public class UsuarioServiceImpl implements UsuarioService{
 	@Override
 	public UsuarioData findById(String id) {
 		return UsuarioDataMapper.fromEntityToDTO(getUsuario(id));
+	}
+
+	@Override
+	public List<UsuarioData> findProfessorByFaculdadeId(Long id_faculdade) {
+		List<Usuario> lista = repository.findByTipoAndFaculdadeId(TipoUsuario.PROFESSOR, id_faculdade);
+
+		if(lista.isEmpty()) {
+			throw new NotFoundException("Nenhum Usuario cadastrado!");
+		}
+
+		return lista.stream()
+				.map(UsuarioDataMapper::fromEntityToDTO)
+				.collect(Collectors.toList());
 	}
 
 	@Override

@@ -22,6 +22,8 @@ import com.marcospedroso.facens.correlato.service.UsuarioService;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 @RestController
 @RequestMapping("/usuarios")
@@ -40,6 +42,12 @@ public class UsuarioController {
     public ResponseEntity<UsuarioData> findById(@PathVariable String id) {
         return ResponseEntity.status(HttpStatus.OK).body(service.findById(id));
     }
+
+    @GetMapping("/professores/{id}")
+    public ResponseEntity<List<UsuarioData>> findProfessorByFaculdadeId(@PathVariable Long id) {
+        return ResponseEntity.status(HttpStatus.OK).body(service.findProfessorByFaculdadeId(id));
+    }
+    
 
     @PostMapping
     public ResponseEntity<UsuarioData> create(@Valid @RequestBody CreateUpdateUsuario dto) {
