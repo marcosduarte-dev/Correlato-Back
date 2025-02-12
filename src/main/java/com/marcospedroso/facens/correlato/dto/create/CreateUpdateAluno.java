@@ -1,5 +1,7 @@
 package com.marcospedroso.facens.correlato.dto.create;
 
+import java.util.List;
+
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -26,4 +28,6 @@ public class CreateUpdateAluno {
 	
 	@NotNull(message = "não pode ser nulo")
     private Long idCurso;
+
+	private List<Long> analisesEquivalencias;
 }

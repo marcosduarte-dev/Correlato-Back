@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 import com.marcospedroso.facens.correlato.dto.create.CreateUpdateAluno;
 import com.marcospedroso.facens.correlato.dto.data.AlunoData;
 import com.marcospedroso.facens.correlato.model.Aluno;
+import com.marcospedroso.facens.correlato.model.AnaliseEquivalencia;
 import com.marcospedroso.facens.correlato.model.Curso;
 
 public class AlunoDataMapper {
@@ -33,14 +34,22 @@ public class AlunoDataMapper {
 	 }
 	 
 	 public static Aluno fromDTOCreateUpdateToEntity(CreateUpdateAluno dto) {
-                Aluno aluno = Aluno.builder()
-                    .id(dto.getId())
-	        		.email(dto.getEmail())
-	                .nome(dto.getNome())
-	                .matricula(dto.getMatricula())
-	                .curso(new Curso((long) dto.getIdCurso()))
-	                .build();
+            Aluno aluno = Aluno.builder()
+                .id(dto.getId())
+	        	.email(dto.getEmail())
+	            .nome(dto.getNome())
+	            .matricula(dto.getMatricula())
+	            .curso(new Curso((long) dto.getIdCurso()))
+	            .build();
 	        
+			if (dto.getAnalisesEquivalencias() != null && !dto.getAnalisesEquivalencias().isEmpty()) {
+				aluno.setAnalisesEquivalencias(
+					dto.getAnalisesEquivalencias().stream()
+						.map(id -> new AnaliseEquivalencia(id))
+						.collect(Collectors.toList())
+				);
+			}
+
 	        return aluno;
 	 }
 }

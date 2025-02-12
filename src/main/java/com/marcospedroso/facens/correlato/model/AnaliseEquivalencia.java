@@ -48,4 +48,8 @@ public class AnaliseEquivalencia {
 	private StatusAnaliseEquivalencia status;
 	
 	private boolean aprovado;
+
+	public AnaliseEquivalencia(long id) {
+		this.id = id;
+	}
 }
