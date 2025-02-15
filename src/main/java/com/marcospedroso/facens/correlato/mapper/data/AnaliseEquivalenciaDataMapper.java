@@ -1,6 +1,7 @@
 package com.marcospedroso.facens.correlato.mapper.data;
 
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import com.marcospedroso.facens.correlato.dto.create.CreateUpdateAnaliseEquivalencia;
 import com.marcospedroso.facens.correlato.dto.data.AnaliseEquivalenciaData;
@@ -32,6 +33,14 @@ public class AnaliseEquivalenciaDataMapper {
 		    if (entity.getDisciplinaDestino() != null) {
 		        analiseEquivalenciaData.setDisciplinaDestino(DisciplinaDataMapper.fromEntityToDTO(entity.getDisciplinaDestino()));
 		    }
+
+			if (entity.getAlunos() != null && !entity.getAlunos().isEmpty()) {
+				analiseEquivalenciaData.setAlunos(
+					entity.getAlunos().stream()
+						.map(AlunoDataMapper::fromEntityAlunoAnaliseEquivalenciaToDTO)
+						.collect(Collectors.toList())
+				);
+			}
 
 		    return analiseEquivalenciaData;
 	 }

@@ -3,6 +3,7 @@ package com.marcospedroso.facens.correlato.mapper.data;
 import java.util.stream.Collectors;
 
 import com.marcospedroso.facens.correlato.dto.create.CreateUpdateAluno;
+import com.marcospedroso.facens.correlato.dto.data.AlunoAnaliseEquivalenciaData;
 import com.marcospedroso.facens.correlato.dto.data.AlunoData;
 import com.marcospedroso.facens.correlato.model.Aluno;
 import com.marcospedroso.facens.correlato.model.AnaliseEquivalencia;
@@ -51,5 +52,16 @@ public class AlunoDataMapper {
 			}
 
 	        return aluno;
+	 }
+
+	 public static AlunoAnaliseEquivalenciaData fromEntityAlunoAnaliseEquivalenciaToDTO(Aluno entity) {
+        AlunoAnaliseEquivalenciaData alunoData = AlunoAnaliseEquivalenciaData.builder()
+		            .id(entity.getId().toString())
+		            .email(entity.getEmail())
+		            .nome(entity.getNome())
+		            .matricula(entity.getMatricula())
+		            .build();
+
+		    return alunoData;
 	 }
 }

@@ -1,5 +1,7 @@
 package com.marcospedroso.facens.correlato.dto.data;
 
+import java.util.List;
+
 import com.marcospedroso.facens.correlato.enums.StatusAnaliseEquivalencia;
 
 import lombok.AllArgsConstructor;
@@ -18,4 +20,5 @@ public class AnaliseEquivalenciaData {
 	private DisciplinaData disciplinaDestino;
 	private StatusAnaliseEquivalencia status;
 	private boolean aprovado;
+	private List<AlunoAnaliseEquivalenciaData> alunos;
 }
