@@ -38,6 +38,7 @@ jobs:
         name: Build & push Docker image
         with:
           image: marcosduarte-dev/correlato-back
+          tags: latest
           registry: c.tsapp.dev
           dockerfile: Dockerfile
           username: ${{ secrets.DOCKER_USERNAME }}
