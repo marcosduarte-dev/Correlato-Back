@@ -28,6 +28,7 @@ jobs:
         run: |
           echo "${{ secrets.APP_KEY }}" > src/main/resources/app.key
           echo "${{ secrets.APP_PUB }}" > src/main/resources/app.pub
+          echo "${{ secrets.DB_PROPERTIES }}" > src/main/resources/db.properties
 
       # Buildar o projeto com Maven, utilizando os arquivos criados
       - name: Build with Maven
