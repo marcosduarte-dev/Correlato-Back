@@ -13,42 +13,37 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.marcospedroso.facens.correlato.dto.create.CreateUpdateFaculdade;
-import com.marcospedroso.facens.correlato.dto.data.FaculdadeData;
-import com.marcospedroso.facens.correlato.service.FaculdadeService;
+import com.marcospedroso.facens.correlato.dto.create.CreateUpdateAluno;
+import com.marcospedroso.facens.correlato.dto.data.AlunoData;
+import com.marcospedroso.facens.correlato.service.AlunoService;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("/faculdades")
+@RequestMapping("/alunos")
 @RequiredArgsConstructor
-public class FaculdadeController {
+public class AlunosController {
 	
-	private final FaculdadeService service;
+	private final AlunoService service;
 	
 	@GetMapping
-    public ResponseEntity<List<FaculdadeData>> findAll() {
+    public ResponseEntity<List<AlunoData>> findAll() {
         return ResponseEntity.status(HttpStatus.OK).body(service.findAll());
     }
 
-    @GetMapping("/ativos")
-    public ResponseEntity<List<FaculdadeData>> findAllAtivos() {
-        return ResponseEntity.status(HttpStatus.OK).body(service.findAllAtivos());
-    }
-
     @GetMapping("/{id}")
-    public ResponseEntity<FaculdadeData> findById(@PathVariable Long id) {
+    public ResponseEntity<AlunoData> findById(@PathVariable Long id) {
         return ResponseEntity.status(HttpStatus.OK).body(service.findById(id));
     }
 
     @PostMapping
-    public ResponseEntity<FaculdadeData> create(@Valid @RequestBody CreateUpdateFaculdade dto) {
+    public ResponseEntity<AlunoData> create(@Valid @RequestBody CreateUpdateAluno dto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(service.create(dto));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<FaculdadeData> update(@Valid @PathVariable Long id, @RequestBody CreateUpdateFaculdade dto) {
+    public ResponseEntity<AlunoData> update(@Valid @PathVariable Long id, @RequestBody CreateUpdateAluno dto) {
         return ResponseEntity.status(HttpStatus.OK).body(service.update(dto));
     }
 
@@ -57,11 +52,6 @@ public class FaculdadeController {
         service.delete(id);
 
         return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<FaculdadeData> toggleStatus(@PathVariable Long id) {
-        return ResponseEntity.status(HttpStatus.OK).body(service.toggleStatus(id));
     }
 
 }

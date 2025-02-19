@@ -23,6 +23,7 @@ import com.marcospedroso.facens.correlato.service.UsuarioService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
+
 @RestController
 @RequestMapping("/usuarios")
 @RequiredArgsConstructor
@@ -31,7 +32,7 @@ public class UsuarioController {
 	private final UsuarioService service;
 
 	@GetMapping
-	@PreAuthorize("hasAuthority('SCOPE_SECRETARIO')")
+	// @PreAuthorize("hasAuthority('SCOPE_SECRETARIO')")
     public ResponseEntity<List<UsuarioData>> findAll() {
         return ResponseEntity.status(HttpStatus.OK).body(service.findAll());
     }
@@ -40,6 +41,12 @@ public class UsuarioController {
     public ResponseEntity<UsuarioData> findById(@PathVariable String id) {
         return ResponseEntity.status(HttpStatus.OK).body(service.findById(id));
     }
+
+    @GetMapping("/professores/{id}")
+    public ResponseEntity<List<UsuarioData>> findProfessorByFaculdadeId(@PathVariable Long id) {
+        return ResponseEntity.status(HttpStatus.OK).body(service.findProfessorByFaculdadeId(id));
+    }
+    
 
     @PostMapping
     public ResponseEntity<UsuarioData> create(@Valid @RequestBody CreateUpdateUsuario dto) {

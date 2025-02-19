@@ -40,6 +40,7 @@ public class SecurityConfig {
 		http
 			.authorizeHttpRequests(authorize -> authorize
 					.requestMatchers(HttpMethod.POST, "/usuarios").permitAll()
+					.requestMatchers(HttpMethod.GET, "/usuarios").permitAll()
 					.requestMatchers(HttpMethod.POST, "/usuarios/login").permitAll()
 					.requestMatchers(HttpMethod.GET, "/swagger-ui/*").permitAll()
 					.requestMatchers("/v3/api-docs/*").permitAll()
@@ -49,6 +50,8 @@ public class SecurityConfig {
 			.oauth2ResourceServer(oauth2 -> oauth2.jwt(Customizer.withDefaults()))
 			.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 		
+			// http.authorizeHttpRequests(authorize -> authorize.anyRequest().permitAll())
+			// .csrf(csrf -> csrf.disable());
 		
 		return http.build();
 	}

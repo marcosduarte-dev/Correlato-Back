@@ -12,6 +12,8 @@ public interface UsuarioService {
 
 	UsuarioData findById(String id);
 
+	List<UsuarioData> findProfessorByFaculdadeId(Long faculdade_id);
+
 	UsuarioData create(CreateUpdateUsuario dto);
 
 	UsuarioData update(CreateUpdateUsuario dto);

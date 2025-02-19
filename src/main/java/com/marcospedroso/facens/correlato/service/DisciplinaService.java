@@ -8,6 +8,10 @@ import com.marcospedroso.facens.correlato.dto.data.DisciplinaData;
 public interface DisciplinaService {
 	List<DisciplinaData> findAll();
 
+	List<DisciplinaData> findAllAtivos();
+
+	List<DisciplinaData> findByCursoId(Long id);
+
 	DisciplinaData findById(Long id);
 
 	DisciplinaData create(CreateUpdateDisciplina dto);

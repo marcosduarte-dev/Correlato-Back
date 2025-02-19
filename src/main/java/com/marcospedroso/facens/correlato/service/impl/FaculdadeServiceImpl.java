@@ -40,6 +40,19 @@ public class FaculdadeServiceImpl implements FaculdadeService{
 	}
 
 	@Override
+	public List<FaculdadeData> findAllAtivos() {
+		List<Faculdade> lista = repository.findAllByAtivo(true);
+		
+		if(lista.isEmpty()) {
+			throw new NotFoundException("Nenhuma Faculdade ativa encontrada!");
+		}
+		
+		return lista.stream()
+				.map(FaculdadeDataMapper::fromEntityToDTO)
+				.collect(Collectors.toList());
+	}
+
+	@Override
 	public FaculdadeData findById(Long id) {
 		return FaculdadeDataMapper.fromEntityToDTO(getFaculdade(id));
 	}

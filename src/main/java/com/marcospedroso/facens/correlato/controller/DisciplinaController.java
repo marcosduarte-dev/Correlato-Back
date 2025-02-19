@@ -32,6 +32,16 @@ public class DisciplinaController {
         return ResponseEntity.status(HttpStatus.OK).body(service.findAll());
     }
 
+    @GetMapping("/ativos")
+    public ResponseEntity<List<DisciplinaData>> findAllAtivos() {
+        return ResponseEntity.status(HttpStatus.OK).body(service.findAllAtivos());
+    }
+
+    @GetMapping("/curso/{id}")
+    public ResponseEntity<List<DisciplinaData>> findByCursoId(@PathVariable Long id) {
+        return ResponseEntity.status(HttpStatus.OK).body(service.findByCursoId(id));
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<DisciplinaData> findById(@PathVariable Long id) {
         return ResponseEntity.status(HttpStatus.OK).body(service.findById(id));
